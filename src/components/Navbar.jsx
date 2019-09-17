@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
       return (
         // login and register buttons
         <div>
-          <button className="btn btn-primary" style={{marginLeft: "10px"}}>LOGIN</button>
+          <a href="/login" className="btn btn-primary" style={{marginLeft: "10px"}}>LOGIN</a>
           <button className="btn btn-primary" style={{marginLeft: "10px"}}>REGISTER</button>
         </div>
       )
@@ -32,7 +32,7 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#"><FontAwesomeIcon icon={faArrowUp} className="create-post-icon"/> UPVOTE</a>
+        <a className="navbar-brand" href="/"><img src="/mainlogo.png" height="45" className="d-inline-block align-top" alt="logo"/></a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
