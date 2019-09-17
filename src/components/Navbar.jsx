@@ -16,7 +16,10 @@ export default class Navbar extends React.Component {
     if(this.state.userToken === "") {
       return (
         // login and register buttons
-        <div></div>
+        <div>
+          <button className="btn btn-primary" style={{marginLeft: "10px"}}>LOGIN</button>
+          <button className="btn btn-primary" style={{marginLeft: "10px"}}>REGISTER</button>
+        </div>
       )
     } else {
       return (
