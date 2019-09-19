@@ -1,10 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import HomeScreen from './screens/HomeScreen';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LoginScreen from './screens/Auth/LoginScreen';
+import RegisterScreen from './screens/Auth/RegisterScreen';
 
 function App() {
   return (
@@ -14,6 +13,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomeScreen}/>
           <Route exact path="/login" component={LoginScreen}/>
+          <Route exact path="/register" component={RegisterScreen}/>
         </Switch>
       </div>
     </Router>

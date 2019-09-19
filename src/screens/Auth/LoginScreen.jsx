@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../css/auth.css';
+import {Link} from 'react-router-dom';
 
 export default class LoginScreen extends React.Component {
 
@@ -33,8 +34,11 @@ export default class LoginScreen extends React.Component {
             </div>
             <div className="form-bottom">
               <h2>LOGIN</h2>
-              <input onChange={this._handleEmailInput} value={this.state.emailField} className="form-control login-input" type="text" placeholder="Email..."/>
-              <input onChange={this._handlePasswordnput} value={this.state.passwordField} className="form-control login-input" type="password" placeholder="Password..."/>
+              <input onChange={this._handleEmailInput} value={this.state.emailField} className="login-input" type="text" placeholder="Email..."/>
+              <input onChange={this._handlePasswordnput} value={this.state.passwordField} className="login-input" type="password" placeholder="Password..."/>
+              <button className="btn btn-primary submit-button">LOGIN</button>
+              <Link to="/login">Forgot your password?</Link>
+              <img src="/undraw_authentication_fsn5.svg" alt="login illustration" className="login-svg"/>
             </div>
           </div>
         </div>
