@@ -13,24 +13,12 @@ export default class Navbar extends React.Component {
     }
   }
 
-  displayAccountManagement = () => {
-    if(this.state.userToken === "") {
-      return (
-        // login and register buttons
-        <div>
-          <Link to="/login" className="btn btn-primary" style={{marginLeft: "10px"}}>LOGIN</Link>
-          <Link to="/register" className="btn btn-primary" style={{marginLeft: "10px"}}>REGISTER</Link>
-        </div>
-      )
-    } else {
-      return (
-        // profile management
-        <div></div>
-      )
-    }
+  _logout = () => {
+    localStorage.removeItem('authToken')
+    this.props.history.push("/welcome")
   }
 
-  render() {
+  render() {    
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/"><img src="/mainlogo.png" height="45" className="d-inline-block align-top" alt="logo"/></Link>
@@ -53,10 +41,10 @@ export default class Navbar extends React.Component {
           <form className="form-inline my-2 my-lg-0">
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
             <button className="btn btn-primary" type="submit">Search</button>
-            {this.displayAccountManagement()}
+            <button onClick={() => this._logout()} className="btn btn-primary" style={{marginLeft: "10px"}}>LOGOUT</button>
           </form>
         </div>
       </nav>
-    )
+    )    
   }
 }

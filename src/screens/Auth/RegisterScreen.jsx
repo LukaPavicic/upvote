@@ -2,6 +2,7 @@ import React from 'react';
 import '../../css/auth.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom'
 
 export default class RegisterScreen extends React.Component {
 
@@ -122,25 +123,31 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
-    return (
-      <div className="top-wrapper">
-        <div className="container">
-          <div className="form-wrapper">
-            <div className="form-top">
-              <img src="/mainlogo.png" alt="logo" width="55%"/>
-            </div>
-            <div className="form-bottom">
-              <h2>REGISTER</h2>
-              <input style={{borderColor: this.state.emailFieldColor}} onChange={this._handleEmailInput} value={this.state.emailField} className="login-input" type="text" placeholder="Email..."/>
-              <input style={{borderColor: this.state.usernameFieldColor}} onChange={this._handleUsernameInput} value={this.state.usernameField} className="login-input" type="text" placeholder="Username..."/>
-              <input style={{borderColor: this.state.passwordFieldColor}} onChange={this._handlePasswordInput} value={this.state.passwordField} className="login-input" type="password" placeholder="Password..."/>
-              <input style={{borderColor: this.state.confirmPasswordFieldColor}} onChange={this._handleConfirmPasswordInput} value={this.state.confirmPasswordInput} className="login-input" type="password" placeholder="Confirm Password..."/>
-              <button onClick={() => this._handleRegisterButtonPress()} className="btn btn-primary submit-button">REGISTER</button>
-              <Link to="/login">Already have an account?</Link>              
+    if(localStorage.getItem('authToken') === null) {
+      return (
+        <div className="top-wrapper">
+          <div className="container">
+            <div className="form-wrapper">
+              <div className="form-top">
+                <img src="/mainlogo.png" alt="logo" width="55%"/>
+              </div>
+              <div className="form-bottom">
+                <h2>REGISTER</h2>
+                <input style={{borderColor: this.state.emailFieldColor}} onChange={this._handleEmailInput} value={this.state.emailField} className="login-input" type="text" placeholder="Email..."/>
+                <input style={{borderColor: this.state.usernameFieldColor}} onChange={this._handleUsernameInput} value={this.state.usernameField} className="login-input" type="text" placeholder="Username..."/>
+                <input style={{borderColor: this.state.passwordFieldColor}} onChange={this._handlePasswordInput} value={this.state.passwordField} className="login-input" type="password" placeholder="Password..."/>
+                <input style={{borderColor: this.state.confirmPasswordFieldColor}} onChange={this._handleConfirmPasswordInput} value={this.state.confirmPasswordInput} className="login-input" type="password" placeholder="Confirm Password..."/>
+                <button onClick={() => this._handleRegisterButtonPress()} className="btn btn-primary submit-button">REGISTER</button>
+                <Link to="/login">Already have an account?</Link>              
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <Redirect to="/"/>
+      )
+    }
   }
 }
