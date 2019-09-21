@@ -37,7 +37,7 @@ export default class LoginScreen extends React.Component {
       config: {headers: {'Content-Type': 'multipart/form-data'}}
     }).then(res => {
       localStorage.setItem('authToken', res.data.token)
-      this.props.history.push('/')
+      window.location.replace('http://localhost:3000/')
     }).catch(err => {
       console.log(err);
     })

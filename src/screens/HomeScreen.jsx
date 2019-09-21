@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/homescreen.css';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+import PostItem from '../components/Homescreen/PostItem'
 
 export default class HomeScreen extends React.Component {
 
@@ -14,20 +15,36 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  componentDidMount() {
+  _getUserJoinedCommunities = () => {
     axios.get('http://127.0.0.1:8000/api/userjoinedcommunities/', {
       headers: {
         'Authorization': `Token ${localStorage.getItem('authToken')}`
       }
-    }).then(res => {
-      console.log("here")
+    }).then(res => {      
       this.setState({
-        joined_communities: res.data.joined_communities,
-        isLoading: false,
+        joined_communities: res.data.joined_communities,        
       })
     }).catch(err => {
       console.log(err)
     })
+  }
+
+  _getPosts = () => {
+    axios.get('http://127.0.0.1:8000/api/posts/', {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('authToken')}`
+      }
+    }).then(res => {
+      this.setState({
+        posts: res.data.reverse(),
+        isLoading: false,
+      })
+    })
+  }
+
+  componentDidMount() {
+    this._getUserJoinedCommunities()
+    this._getPosts()
   }
 
   render() {
@@ -40,9 +57,7 @@ export default class HomeScreen extends React.Component {
                   <div className="col-lg-8 col-md-8 col-xs-12">
                     <h5>Posts</h5>
                     {this.state.posts.map(post => (
-                      <div key={post.id} className="single-post-wrapper">
-    
-                      </div>
+                      <PostItem key={post.id} post={post}/>
                     ))}
                   </div>
                   <div className="col-lg-4 col-md-4 col-xs-0 position-sticky">                

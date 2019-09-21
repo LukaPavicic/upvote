@@ -27,3 +27,15 @@
   width: 100%;
   z-index: 999;
 }
+
+#navbarDropdown {
+  color: #e67e22 !important;
+}
+
+.dropdown-menu .dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-item:active, .dropdown-item:focus {
+  background-color: #d35400;
+}
