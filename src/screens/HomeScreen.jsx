@@ -26,6 +26,7 @@ export default class HomeScreen extends React.Component {
       })
     }).catch(err => {
       console.log(err)
+      // window.location.replace('/servererror')
     })
   }
 
@@ -39,6 +40,9 @@ export default class HomeScreen extends React.Component {
         posts: res.data.reverse(),
         isLoading: false,
       })
+    }).catch(err => {
+      console.log(err)
+      // window.location.replace('/servererror')
     })
   }
 
@@ -63,7 +67,7 @@ export default class HomeScreen extends React.Component {
                   <div className="col-lg-4 col-md-4 col-xs-0 position-sticky">                
                     <h5>Joined communities</h5>
                     <ul className="list-group">
-                      {this.state.joined_communities.map((community) => (
+                      {(this.state.joined_communities.length===0) ? <p className="lead">You haven't joined any communities.</p> : this.state.joined_communities.map((community) => (
                         <li key={community.id} className="list-group-item">{community.name}</li>
                       ))}
                     </ul>
@@ -76,7 +80,7 @@ export default class HomeScreen extends React.Component {
           return (
             <div className="homescreen-wrapper"> 
               <div className="container">
-                <h1>Loading...</h1>
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
               </div>
             </div>
           )

@@ -1,5 +1,6 @@
 import React from 'react'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
+import '../css/master.css'
 
 export default class LandingScreen extends React.Component {
     render() {
@@ -7,8 +8,11 @@ export default class LandingScreen extends React.Component {
             return <Redirect to="/"/> 
         } else {
             return (
-                <div>
-                    hjgfroegjhreoi
+                <div class="full-wh">
+                    <div className="background-main center-xy">
+                        <Link to="/login/">login</Link>
+                        <Link to="/register/">register</Link>
+                    </div>
                 </div>
             )
         }        
