@@ -54,7 +54,7 @@ class Navbar extends React.Component {
                     <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">Communities</a>
+                    <Link className="nav-link" to="/communities">Communities</Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link create-post-text" to="/newpost">Post <FontAwesomeIcon icon={faPencilAlt} className="create-post-icon"/></Link>

@@ -80,7 +80,7 @@ export default class HomeScreen extends React.Component {
           return (
             <div className="homescreen-wrapper"> 
               <div className="container">
-                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
               </div>
             </div>
           )

@@ -8,6 +8,7 @@ import LandingScreen from './screens/LandingScreen'
 import NewPostScreen from './screens/Auth/NewPostScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ServerErrorScreen from './screens/ServerErrorScreen';
+import CommunitiesScreen from './screens/CommunitiesScreen';
 
 class App extends React.Component {
   render() {
@@ -23,6 +24,7 @@ class App extends React.Component {
             <Route exact path="/newpost" component={NewPostScreen}/>
             <Route exact path="/users/:id" component={ProfileScreen}/>
             <Route exact path="/servererror" component={ServerErrorScreen}/>
+            <Route exact path="/communities" component={CommunitiesScreen}/>
           </Switch>
         </div>
       </Router>
