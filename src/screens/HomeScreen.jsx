@@ -1,8 +1,9 @@
 import React from 'react';
 import '../css/homescreen.css';
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import axios from 'axios'
 import PostItem from '../components/Homescreen/PostItem'
+
 
 export default class HomeScreen extends React.Component {
 
@@ -61,7 +62,9 @@ export default class HomeScreen extends React.Component {
                   <div className="col-lg-8 col-md-8 col-xs-12">
                     <h5>Posts</h5>
                     {this.state.posts.map(post => (
-                      <PostItem key={post.id} post={post}/>
+                      <Link to={`/`}>
+                        <PostItem key={post.id} post={post}/>
+                      </Link>                      
                     ))}
                   </div>
                   <div className="col-lg-4 col-md-4 col-xs-0 position-sticky">                

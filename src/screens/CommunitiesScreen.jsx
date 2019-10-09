@@ -28,6 +28,7 @@ class CommunitiesScreen extends React.Component {
                 communities: res.data,
                 isLoading: false,
             })
+            console.log(res.data)
         }).catch(err => {
             console.log(err)
         })
@@ -42,9 +43,15 @@ class CommunitiesScreen extends React.Component {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
         }).then(res => {
-            if(res.status === 201) {
-                
-            }
+            return axios.post('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+                community: res.data.id
+            }, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('authToken')}`
+                }
+            })            
+        }).then(res => {
+            console.log("Community created successfully!")
         }).catch(err => {
             console.log(err)
         })

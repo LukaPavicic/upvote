@@ -31,10 +31,6 @@ export default class NewPostScreen extends React.Component {
     }
 
     _createPost = () => {        
-        let formData = new FormData();
-        formData.set('title', this.state.titleField);
-        formData.set('description', this.state.descriptionField);     
-        formData.set('community', this.state.communityField);
         axios.post('http://127.0.0.1:8000/api/posts/', {
             title: this.state.titleField,
             description: this.state.descriptionField,

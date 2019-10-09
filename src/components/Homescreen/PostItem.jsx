@@ -28,10 +28,10 @@ export default class PostItem extends React.Component {
                             <FontAwesomeIcon icon={faArrowUp}/>
                             <span style={{marginLeft: "5px", fontSize: "18px"}}>0</span>
                         </div>
-                        <div style={{marginLeft: "20px", cursor: "pointer"}}>
+                        {this.props.single ? null : <div style={{marginLeft: "20px", cursor: "pointer"}}>
                             <FontAwesomeIcon icon={faComments} color={"#e67e22"}/>
                             <span style={{marginLeft: "5px", fontSize: "18px", color: "#e67e22"}}>Comments</span>
-                        </div>
+                        </div>}
                         <div style={{marginLeft: "20px", cursor: "pointer"}}>
                             <FontAwesomeIcon icon={faBookmark} color={"#e67e22"}/>
                             <span style={{marginLeft: "5px", fontSize: "18px", color: "#e67e22"}}>Save</span>
