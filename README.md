@@ -6,8 +6,7 @@ created by Luka Pavičić
 UPVOTE is a Reddit clone. It is a place for all types of people who can join communities which they like. There they can share photos, videos, links etc.  
 
 ## Main features
-- Token Authentication
-- Posting images, videos etc.
+- Posting text, links, images, videos etc.
 - Comments on posts
 - Rating a post
 - Save favorite posts to one place
