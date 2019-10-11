@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faArrowUp, faComments, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import moment from "moment"
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 
 export default class PostItem extends React.Component {
@@ -12,6 +13,20 @@ export default class PostItem extends React.Component {
         this.state = {
 
         }
+    }
+
+    _upvote = () => {
+        axios.post('http://127.0.0.1:8000/api/upvote/', {
+            post: this.props.post.id
+        }, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            this.props.updatePostData(this.props.post.id, this.props.postIndex)
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     render() {
@@ -24,10 +39,10 @@ export default class PostItem extends React.Component {
                 </div>  
                 <div className="single-post-bottom">
                     <div className="single-post-bottom-left">
-                        <div>
-                            <FontAwesomeIcon icon={faArrowUp}/>
-                            <span style={{marginLeft: "5px", fontSize: "18px"}}>0</span>
-                        </div>
+                        <Link style={{textDecoration: "none"}} onClick={() => this._upvote()}>
+                            <FontAwesomeIcon icon={faArrowUp} color={(this.props.post.has_user_upvoted == 0) ? "black" : "#e67e22"}/>
+                            <span style={{marginLeft: "5px", fontSize: "18px"}}>{this.props.post.post_upvotes}</span>
+                        </Link>
                         {this.props.single ? null : <div style={{marginLeft: "20px", cursor: "pointer"}}>
                             <FontAwesomeIcon icon={faComments} color={"#e67e22"}/>
                             <span style={{marginLeft: "5px", fontSize: "18px", color: "#e67e22"}}>Comments</span>

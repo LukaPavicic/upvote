@@ -42,8 +42,7 @@ class CommunitiesScreen extends React.Component {
             this.setState({
                 user_joined_communities: res.data.joined_communities,
                 isLoading: false,
-            })
-            console.log(res.data)
+            })            
         })
     }
 

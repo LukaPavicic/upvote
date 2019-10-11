@@ -52,6 +52,19 @@ export default class HomeScreen extends React.Component {
     this._getPosts()
   }
 
+  updatePostData = (postId, index) => {
+    axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('authToken')}`
+      }
+    }).then(res => {
+      this.state.posts[index] = res.data.post_data
+      this.forceUpdate()      
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
       if(localStorage.getItem('authToken') !== null) {
         if(!this.state.isLoading) {
@@ -61,9 +74,9 @@ export default class HomeScreen extends React.Component {
                 <div className="row">
                   <div className="col-lg-8 col-md-8 col-xs-12">
                     <h5>Posts</h5>
-                    {this.state.posts.map(post => (
+                    {this.state.posts.map((post,index) => (
                       <Link style={{textDecoration: "none", color: "black"}} to={`/post/${post.id}`}>
-                        <PostItem key={post.id} post={post}/>
+                        <PostItem postIndex={index} key={post.id} post={post} updatePostData={this.updatePostData}/>
                       </Link>                      
                     ))}
                   </div>
