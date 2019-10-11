@@ -62,7 +62,7 @@ export default class HomeScreen extends React.Component {
                   <div className="col-lg-8 col-md-8 col-xs-12">
                     <h5>Posts</h5>
                     {this.state.posts.map(post => (
-                      <Link to={`/`}>
+                      <Link style={{textDecoration: "none", color: "black"}} to={`/post/${post.id}`}>
                         <PostItem key={post.id} post={post}/>
                       </Link>                      
                     ))}
@@ -71,7 +71,7 @@ export default class HomeScreen extends React.Component {
                     <h5>Joined communities</h5>
                     <ul className="list-group">
                       {(this.state.joined_communities.length===0) ? <p className="lead">You haven't joined any communities.</p> : this.state.joined_communities.map((community) => (
-                        <li key={community.id} className="list-group-item">{community.name}</li>
+                        <Link style={{color: "black", textDecoration: "none"}} to={`/community/${community.id}`}><li key={community.id} className="list-group-item joined-com-item">{community.name}</li></Link>
                       ))}
                     </ul>
                   </div>

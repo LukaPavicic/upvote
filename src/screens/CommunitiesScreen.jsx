@@ -25,12 +25,25 @@ class CommunitiesScreen extends React.Component {
             }
         }).then(res => {
             this.setState({
-                communities: res.data,
-                isLoading: false,
+                communities: res.data,                
             })
             console.log(res.data)
         }).catch(err => {
             console.log(err)
+        })
+    }
+
+    _getUserJoinedCommunities = () => {
+        axios.get('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            this.setState({
+                user_joined_communities: res.data.joined_communities,
+                isLoading: false,
+            })
+            console.log(res.data)
         })
     }
 
@@ -57,8 +70,9 @@ class CommunitiesScreen extends React.Component {
         })
     }
 
-    componentDidMount() {
+    componentDidMount() {        
         this._getCommunities()
+        this._getUserJoinedCommunities()
     }
 
     _handleNameChange = (event) => {
@@ -133,8 +147,8 @@ class CommunitiesScreen extends React.Component {
                             {/* <div className="col-lg-4 col-md-6 col-xs-12"></div> */}
                             {this.state.communities.map(community => (
                                 <div key={community.id} className="col-lg-4 col-md-6 col-xs-12">
-                                    <Link style={{textDecoration: "none"}}>
-                                        <Community community={community}/>
+                                    <Link style={{textDecoration: "none"}} to={`/community/${community.id}`}>
+                                        <Community community={community} has_joined={this.state.user_joined_communities.some(e => e.id === community.id)}/>
                                     </Link>                                    
                                 </div>
                             ))}

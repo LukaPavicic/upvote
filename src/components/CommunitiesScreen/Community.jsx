@@ -26,6 +26,10 @@ export default class Community extends React.Component {
         })
     }
 
+    _leaveCommunity = () => {
+        //
+    }
+
     render() {
         return (
             <div className="community-card-wrapper">
@@ -36,9 +40,14 @@ export default class Community extends React.Component {
                     <h4 style={{color: "black"}}>{this.props.community.name}</h4>
                     {(this.props.community.description.length === 0) ? <p className="lead">This community has no description</p> : 
                     <p className="lead">{this.props.community.description.substring(0,38)}</p>}
-                    <div style={{textDecoration: "none", position: "absolute", bottom: "40px", right: "40px"}}>
+                    {this.props.has_joined ? 
+                    (<div onClick={this._leaveCommunity} style={{textDecoration: "none", position: "absolute", bottom: "40px", right: "40px"}}>
+                        <span style={{color: "#e67e22"}}>LEAVE</span>
+                    </div>) 
+                    : 
+                    (<div onClick={this._joinCommunity} style={{textDecoration: "none", position: "absolute", bottom: "40px", right: "40px"}}>
                         <span style={{color: "#e67e22"}}>JOIN</span>
-                    </div>
+                    </div>)}
                 </div>
             </div>
         )

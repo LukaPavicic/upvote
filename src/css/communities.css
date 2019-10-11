@@ -68,3 +68,7 @@
     color: grey;
     text-align: center;
 }
+
+.container h3 {
+    margin: 20px 0px;
+}
