@@ -49,6 +49,19 @@ class PostScreen extends React.Component {
         })
     }
 
+    updatePostData = (postId, index) => {
+        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('authToken')}`
+          }
+        }).then(res => {
+          this.state.post_data = res.data.post_data
+          this.forceUpdate()      
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+
     _postComment = () => {
         axios.post('http://127.0.0.1:8000/api/comments/', {
             post: this.state.post_data.id,
@@ -73,7 +86,7 @@ class PostScreen extends React.Component {
                 return (
                     <div className="homescreen-wrapper">
                         <div className="container">
-                            <PostItem post={this.state.post_data} single={true}/>
+                            <PostItem post={this.state.post_data} single={true} updatePostData={this.updatePostData} postIndex={0}/>
                             <h3>Comments</h3>
                             <div class="input-group mb-3 new-comment">
                                 <input type="text" class="form-control" placeholder="Add new comment..." value={this.state.new_comment} onChange={this._handleNewComment}/>

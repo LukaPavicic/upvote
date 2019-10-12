@@ -36,7 +36,7 @@ class Navbar extends React.Component {
   }
 
   render() { 
-    if(this.props.location.pathname != "/servererror") {
+    if(this.props.location.pathname !== "/servererror") {
       if(localStorage.getItem('authToken') !== null) {
         if(this.state.redirect_to_current_profile){
           return <Redirect to={`/user/${this.state.current_user_id}`}/>

@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../css/communities.css'
-import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 export default class Community extends React.Component {

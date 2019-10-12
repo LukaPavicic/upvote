@@ -40,7 +40,7 @@ export default class PostItem extends React.Component {
                 <div className="single-post-bottom">
                     <div className="single-post-bottom-left">
                         <Link style={{textDecoration: "none"}} onClick={() => this._upvote()}>
-                            <FontAwesomeIcon icon={faArrowUp} color={(this.props.post.has_user_upvoted == 0) ? "black" : "#e67e22"}/>
+                            <FontAwesomeIcon icon={faArrowUp} color={(this.props.post.has_user_upvoted === 0) ? "black" : "#e67e22"}/>
                             <span style={{marginLeft: "5px", fontSize: "18px"}}>{this.props.post.post_upvotes}</span>
                         </Link>
                         {this.props.single ? null : <div style={{marginLeft: "20px", cursor: "pointer"}}>

@@ -11,7 +11,8 @@ class CommunitiesScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLoading: true,
+            isLoadingUJC: true,
+            isLoadingComs: true,
             communities: null,
             new_com_name: "",
             new_com_description: "",
@@ -25,7 +26,8 @@ class CommunitiesScreen extends React.Component {
             }
         }).then(res => {
             this.setState({
-                communities: res.data,                
+                communities: res.data,    
+                isLoadingComs: false,            
             })
             console.log(res.data)
         }).catch(err => {
@@ -41,7 +43,7 @@ class CommunitiesScreen extends React.Component {
         }).then(res => {
             this.setState({
                 user_joined_communities: res.data.joined_communities,
-                isLoading: false,
+                isLoadingUJC: false,
             })            
         })
     }
@@ -83,7 +85,7 @@ class CommunitiesScreen extends React.Component {
     }
 
     render() {
-        if(this.state.isLoading) {
+        if(this.state.isLoadingUJC || this.state.isLoadingComs) {
             return (
                 <div className="homescreen-wrapper">
                     <div className="container">
@@ -95,7 +97,7 @@ class CommunitiesScreen extends React.Component {
                             </p> 
                             </div>
                             <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
-                                <img src="/undraw_status_update_jjgk.svg" width="80%"/>
+                                <img src="/undraw_status_update_jjgk.svg" width="80%" alt="community image"/>
                             </div>
                         </div>
                         <div style={{marginTop: "30px"}} className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -137,7 +139,7 @@ class CommunitiesScreen extends React.Component {
                             </p> 
                             </div>
                             <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
-                                <img src="/undraw_status_update_jjgk.svg" width="80%"/>
+                                <img src="/undraw_status_update_jjgk.svg" width="80%" alt="img"/>
                             </div>
                         </div>
                         <button style={{marginTop: "30px"}} type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSocial">CREATE COMMUNITY</button>

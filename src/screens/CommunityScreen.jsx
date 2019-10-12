@@ -32,6 +32,19 @@ class CommunityScreen extends React.Component {
         })
     }
 
+    updatePostData = (postId, index) => {
+        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('authToken')}`
+          }
+        }).then(res => {
+          this.state.community_posts[index] = res.data.post_data
+          this.forceUpdate()      
+        }).catch(err => {
+          console.log(err)
+        })
+    }
+
     componentDidMount() {
         this._getCommunity()
     }
@@ -53,9 +66,9 @@ class CommunityScreen extends React.Component {
                             </div>                            
                         </div>
                         <h3>Community Posts</h3>
-                        {this.state.community_posts.map(post => (
+                        {this.state.community_posts.map((post, index) => (
                         <Link style={{textDecoration: "none", color: "black", width: "100%"}} to={`/post/${post.id}`}>
-                            <PostItem key={post.id} post={post}/>
+                            <PostItem key={post.id} post={post} postIndex={index} updatePostData={this.updatePostData}/>
                         </Link>                      
                         ))}
                     </div>

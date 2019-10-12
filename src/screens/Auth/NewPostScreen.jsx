@@ -1,8 +1,9 @@
 import React from 'react'
 import '../../css/homescreen.css'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 
-export default class NewPostScreen extends React.Component {
+class NewPostScreen extends React.Component {
 
     constructor(props) {
         super(props)
@@ -41,7 +42,7 @@ export default class NewPostScreen extends React.Component {
                 
             }
         }).then(res => {
-            console.log(res)
+            this.props.history.push(`/post/${res.data.id}`)
         }).catch(err => {
             console.log(err)
         })
@@ -100,3 +101,5 @@ export default class NewPostScreen extends React.Component {
         }
     }
 }
+
+export default withRouter(NewPostScreen)

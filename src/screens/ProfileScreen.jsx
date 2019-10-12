@@ -3,6 +3,7 @@ import '../css/homescreen.css'
 import axios from "axios"
 import moment from "moment"
 import PostItem from '../components/Homescreen/PostItem'
+import {Link} from 'react-router-dom'
 
 export default class ProfileScreen extends React.Component {
 
@@ -35,6 +36,20 @@ export default class ProfileScreen extends React.Component {
         })
     }
 
+    updatePostData = (postId, index) => {
+        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('authToken')}`
+          }
+        }).then(res => {
+          this.state.user_posts[index] = res.data.post_data
+          this.forceUpdate()      
+        }).catch(err => {
+          console.log(err)
+        })
+    }
+    
+
     componentDidMount() {
         this._getUserData()
     }
@@ -65,8 +80,10 @@ export default class ProfileScreen extends React.Component {
                             </div>
                             <div style={{width: "80%"}}>
                                 <h2>User Posts</h2>
-                                {this.state.user_posts.map(post => (
-                                    <PostItem post={post} key={post.id} style={{width: "100%"}}/>
+                                {this.state.user_posts.map((post, index) => (
+                                    <Link style={{color: "black", textDecoration: "none"}} to={`/post/${post.id}`}>
+                                        <PostItem post={post} postIndex={index} key={post.id} style={{width: "100%"}} updatePostData={this.updatePostData}/>
+                                    </Link>                                    
                                 ))}
                             </div>               
                         </div>
