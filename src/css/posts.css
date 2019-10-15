@@ -23,7 +23,7 @@
 .author-image {
     width: 50px; 
     height: 50px;
-    background-color: #e67e22;
+    /* background-color: #e67e22; */
     border-radius: 25px;
 }
 
@@ -54,4 +54,9 @@
 
 .new-comment {
     width: 80%;
+}
+
+.delete-comment {
+    color: red !important;
+    cursor: pointer;
 }

@@ -6,7 +6,6 @@ import CommentItem from '../components/PostScreen/CommentItem'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 
-
 class PostScreen extends React.Component {
 
     constructor(props) {
@@ -14,12 +13,27 @@ class PostScreen extends React.Component {
         this.state = {
             postExists: false,
             isLoading: true,
+            isLoadingUserId: true,
             new_comment: "",
         }
     }
 
     componentDidMount() {
+        this._getLoggedUserId()
         this._getPost()
+    }
+
+    _getLoggedUserId = () => {
+        axios.get('http://127.0.0.1:8000/api/getcurrentuserid/', {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            this.setState({
+                currentUserId: res.data.user_id,
+                isLoadingUserId: false,
+            })
+        })
     }
 
     _getPost = () => {
@@ -56,6 +70,7 @@ class PostScreen extends React.Component {
           }
         }).then(res => {
           this.state.post_data = res.data.post_data
+          this.state.post_comments = res.data.post_comments
           this.forceUpdate()      
         }).catch(err => {
           console.log(err)
@@ -81,7 +96,7 @@ class PostScreen extends React.Component {
     }
 
     render() {
-        if(!this.state.isLoading) {
+        if(!this.state.isLoading && !this.state.isLoadingUserId) {
             if(this.state.postExists) {
                 return (
                     <div className="homescreen-wrapper">
@@ -95,7 +110,7 @@ class PostScreen extends React.Component {
                                 </button>
                             </div>
                             {this.state.post_comments.map(comment => (
-                                <CommentItem key={comment.id} comment={comment}/>
+                                <CommentItem postId={this.state.post_data.id} updatePostData={this.updatePostData} currentUserId={this.state.currentUserId} key={comment.id} comment={comment}/>
                             ))}
                         </div>
                     </div>

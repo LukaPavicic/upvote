@@ -37,7 +37,9 @@ class NewPostScreen extends React.Component {
         formData.append('title', this.state.titleField)
         formData.append('description', this.state.descriptionField)
         formData.append('community', this.state.communityField)
-        formData.append('post_image', this.state.image) 
+        if(this.state.image !== null) {                     
+            formData.append('post_image', this.state.image) 
+        }
         axios.post('http://127.0.0.1:8000/api/posts/', formData, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`,

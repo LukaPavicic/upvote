@@ -32,13 +32,13 @@ export default class HomeScreen extends React.Component {
   }
 
   _getPosts = () => {
-    axios.get('http://127.0.0.1:8000/api/posts/', {
+    axios.get('http://127.0.0.1:8000/api/userrelevantposts/', {
       headers: {
         'Authorization': `Token ${localStorage.getItem('authToken')}`
       }
     }).then(res => {
       this.setState({
-        posts: res.data.reverse(),
+        posts: res.data.posts.reverse(),
         isLoading: false,
       })
     }).catch(err => {
