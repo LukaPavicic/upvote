@@ -30,7 +30,7 @@ class PostScreen extends React.Component {
         }).then(res => {
             this.setState({
                 post_data: res.data.post_data,
-                post_comments: res.data.post_comments,
+                post_comments: res.data.post_comments.reverse(),
                 postExists: true,
                 isLoading: false,
             })

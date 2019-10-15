@@ -110,3 +110,17 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     color: white;
     background-color: #e67e22;
 }
+
+.profile-picture-wrapper:hover {
+    background-color: rgba(0,0,0,0.8);
+    cursor: pointer;
+}
+
+.profile-picture-wrapper:hover .change-prof-pic-text {
+    color: white;
+}
+
+.change-prof-pic-text {
+    color: transparent;
+    font-size: 150%;
+}

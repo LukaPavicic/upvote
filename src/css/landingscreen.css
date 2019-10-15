@@ -1,0 +1,38 @@
+.landing-screen-wrapper {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to top right, #f39c12, #e67e22, #d35400)
+}
+
+.landing-screen-wrapper .container h1 {
+    color: black;    
+    font-weight: 700;
+}
+
+.lnd-main-box {
+    width: 90%;
+    height: 70%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lnd-main-box p {
+    font-size: 130%;
+}
+
+.lnd-main-box span {
+    margin: 10px 0px;
+    font-weight: 700;
+}
+
+.login-or-register-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+}

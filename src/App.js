@@ -11,6 +11,7 @@ import ServerErrorScreen from './screens/ServerErrorScreen';
 import CommunitiesScreen from './screens/CommunitiesScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import PostScreen from './screens/PostScreen';
+import SavedPostsScreen from './screens/SavedPostsScreen';
 
 class App extends React.Component {
   render() {
@@ -29,6 +30,7 @@ class App extends React.Component {
             <Route exact path="/communities" component={CommunitiesScreen}/>
             <Route exact path="/community/:id" component={CommunityScreen}/>
             <Route exact path="/post/:id" component={PostScreen}/>
+            <Route exact path="/savedposts" component={SavedPostsScreen}/>
           </Switch>
         </div>
       </Router>

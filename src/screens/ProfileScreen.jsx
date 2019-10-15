@@ -27,7 +27,7 @@ export default class ProfileScreen extends React.Component {
                 user_info: res.data.user_info,
                 user_posts: res.data.user_posts,
                 isLoading: false,
-            })
+            })            
         }).catch(err => {            
             this.setState({
                 user_not_found: true,
@@ -51,7 +51,26 @@ export default class ProfileScreen extends React.Component {
     
 
     componentDidMount() {
-        this._getUserData()
+        this._getUserData()        
+    }
+
+    _showUploadFile = () => {
+        document.getElementById('changeProfilePicture').click()
+    }
+
+    _onChangeFile = (event) => {
+        let formData = new FormData()
+        formData.append('profile_image', event.target.files[0])
+        axios.patch(`http://127.0.0.1:8000/api/users/${this.state.user_info.id}/`, formData, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            this._getUserData()
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     render() {
@@ -68,17 +87,26 @@ export default class ProfileScreen extends React.Component {
                 return (
                     <div className="homescreen-wrapper">
                         <div className="container">
-                            <div class="card text-center">
-                                <div className="card-header">
-                                    User Profile
+                            <div className="row com-description" style={{marginBottom: "30px"}}>
+                                <div className="col-lg-8 col-md-8 col-xs-12 com-desc-left">
+                                <h1>{this.state.user_info.username}</h1>
+                                <p>
+                                    Joined {moment(this.state.user_info.created_at).fromNow()} | Posted {this.state.user_posts.length} post(s)
+                                </p> 
                                 </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">{this.state.user_info.username}</h5>
-                                    <p className="card-text"><b>Joined: </b>{moment(this.state.user_info.created_at).fromNow()}</p>
-                                    <p className="card-text"><b>Upvote points: </b>{this.state.user_info.upvotes}</p>                                    
-                                </div>                                
+                                <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
+                                    {/* <img src={`http://localhost:8000${this.state.user_info.profile_image}`} height="100%" alt="img"/> */}
+                                    <div className="profile-picture-wrapper" 
+                                    style={{backgroundImage: `url(http://localhost:8000${this.state.user_info.profile_image})`, 
+                                    backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center",
+                                    width: "150px", height: "150px", borderRadius: "75px", display: "flex", alignItems: "center", justifyContent: "center"}} 
+                                    onClick={this._showUploadFile}>
+                                        <input onChange={this._onChangeFile} type="file" id="changeProfilePicture" style={{display: "none"}}/>
+                                        <b><span className="change-prof-pic-text">CHANGE</span></b>
+                                    </div>
+                                </div>
                             </div>
-                            <div style={{width: "80%"}}>
+                            <div style={{width: "100%"}}>
                                 <h2>User Posts</h2>
                                 {this.state.user_posts.map((post, index) => (
                                     <Link style={{color: "black", textDecoration: "none"}} to={`/post/${post.id}`}>

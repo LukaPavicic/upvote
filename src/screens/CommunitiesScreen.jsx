@@ -5,6 +5,7 @@ import '../css/homescreen.css'
 import Community from '../components/CommunitiesScreen/Community'
 import axios from 'axios'
 import {Link, withRouter} from 'react-router-dom'
+import $ from 'jquery'
 
 class CommunitiesScreen extends React.Component {
 
@@ -16,6 +17,7 @@ class CommunitiesScreen extends React.Component {
             communities: null,
             new_com_name: "",
             new_com_description: "",
+            new_com_image: null,
         }
     }
 
@@ -48,13 +50,31 @@ class CommunitiesScreen extends React.Component {
         })
     }
 
-    _createCommunity = () => {
-        axios.post('http://127.0.0.1:8000/api/communities/', {
-            name: this.state.new_com_name,
-            description: this.state.new_com_description
-        }, {
+    _updateCommunityData = (communityId, index) => {
+        axios.get(`http://127.0.0.1:8000/api/communities/${communityId}/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            console.log(res.data)
+            this.state.communities[index] = res.data.community_data
+            this.forceUpdate()            
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    _createCommunity = () => {
+
+        let formData = new FormData()
+        formData.append('community_image', this.state.new_com_image)
+        formData.append('name', this.state.new_com_name)
+        formData.append('description', this.state.new_com_description)
+
+        axios.post('http://127.0.0.1:8000/api/communities/', formData, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`,
+                'Content-Type': 'multipart/form-data'
             }
         }).then(res => {
             return axios.post('http://127.0.0.1:8000/api/userjoinedcommunities/', {
@@ -64,8 +84,8 @@ class CommunitiesScreen extends React.Component {
                     'Authorization': `Token ${localStorage.getItem('authToken')}`
                 }
             })            
-        }).then(res => {
-            console.log("Community created successfully!")
+        }).then(res => {            
+            this.props.history.push(`/community/${res.data.community}`)            
         }).catch(err => {
             console.log(err)
         })
@@ -83,6 +103,10 @@ class CommunitiesScreen extends React.Component {
     _handleDescriptionChange = (event) => {
         this.setState({new_com_description: event.target.value})
     }
+
+    _handleFile = (event) => {
+        this.setState({new_com_image: event.target.files[0]})
+    } 
 
     render() {
         if(this.state.isLoadingUJC || this.state.isLoadingComs) {
@@ -124,6 +148,8 @@ class CommunitiesScreen extends React.Component {
                                     <textarea onChange={this._handleDescriptionChange} style={{resize: "none"}} rows="5" placeholder="Community description..." className="form-control"
                                      value={this.state.new_com_description}>
                                     </textarea>
+                                    <label>Community Image</label><br/>
+                                    <input type="file" className="form-control-file" onChange={this._handleFile}/><br/>
                                     <button onClick={() => this._createCommunity()} style={{marginTop: "15px"}} className="btn btn-primary">CREATE</button>
                                 </div>
                             </div>    
@@ -139,17 +165,17 @@ class CommunitiesScreen extends React.Component {
                             </p> 
                             </div>
                             <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
-                                <img src="/undraw_status_update_jjgk.svg" width="80%" alt="img"/>
+                                <img src="/undraw_status_update_jjgk.svg" height="100%" alt="img"/>
                             </div>
                         </div>
                         <button style={{marginTop: "30px"}} type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSocial">CREATE COMMUNITY</button>
                         <h2>Featured Communities</h2>
                         <div className="row" style={{marginTop: "15px"}}>
                             {/* <div className="col-lg-4 col-md-6 col-xs-12"></div> */}
-                            {this.state.communities.map(community => (
+                            {this.state.communities.map((community, index) => (
                                 <div key={community.id} className="col-lg-4 col-md-6 col-xs-12">
                                     <Link style={{textDecoration: "none"}} to={`/community/${community.id}`}>
-                                        <Community community={community} has_joined={this.state.user_joined_communities.some(e => e.id === community.id)}/>
+                                        <Community communityIndex={index} updateCommunityData={this._updateCommunityData} community={community}/>
                                     </Link>                                    
                                 </div>
                             ))}

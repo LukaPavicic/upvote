@@ -1,6 +1,6 @@
 .com-description {
     width: 100%;
-    height: auto;
+    height: 180px;
     background-image: linear-gradient(to top right, #f39c12, #e67e22);
     color: white;
     border-radius: 15px;
@@ -26,6 +26,12 @@
     align-items: center;
     justify-content: center;
 }
+
+/* .com-desc-right img {
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+} */
 
 .community-card-wrapper {
     height: 155px;

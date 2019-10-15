@@ -13,6 +13,7 @@ class NewPostScreen extends React.Component {
             titleField: "",
             descriptionField: "",
             communityField: 0,
+            image: null,
         }
     }
 
@@ -31,15 +32,16 @@ class NewPostScreen extends React.Component {
         })
     }
 
-    _createPost = () => {        
-        axios.post('http://127.0.0.1:8000/api/posts/', {
-            title: this.state.titleField,
-            description: this.state.descriptionField,
-            community: this.state.communityField,
-        }, {
+    _createPost = () => {       
+        let formData = new FormData()
+        formData.append('title', this.state.titleField)
+        formData.append('description', this.state.descriptionField)
+        formData.append('community', this.state.communityField)
+        formData.append('post_image', this.state.image) 
+        axios.post('http://127.0.0.1:8000/api/posts/', formData, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`,
-                
+                'Content-Type': 'multipart/form-data'
             }
         }).then(res => {
             this.props.history.push(`/post/${res.data.id}`)
@@ -70,13 +72,29 @@ class NewPostScreen extends React.Component {
         })
     }
 
+    _handleImage = (event) => {
+        this.setState({
+            image: event.target.files[0]
+        })
+    }
+
     render() {
         if(!this.state.isLoading) {
             return (
                 <div className="homescreen-wrapper">
                     <div className="container">
                         <div className="subcontainer-newpost">
-                            <h4>New Post</h4>
+                            <div className="row com-description" style={{marginBottom: "30px"}}>
+                                <div className="col-lg-8 col-md-8 col-xs-12 com-desc-left">
+                                <h1>New Post</h1>
+                                <p>
+                                    Share something interesting with people in your community.
+                                </p> 
+                                </div>
+                                <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
+                                    <img src="/undraw_post2_19cj.svg" height="100%" alt="img"/>
+                                </div>
+                            </div> 
                             <p style={{marginTop: "20px"}}>Community</p>
                             <select onChange={this._onCommunityChange} className="form-control" defaultValue="">
                                 <option value="" disabled>Select community you are posting to</option>
@@ -89,6 +107,8 @@ class NewPostScreen extends React.Component {
                             <p style={{marginTop: "10px"}}>Content(optional)</p>
                             <textarea style={{resize: "none"}} rows="4" cols="50" className="form-control" placeholder="Content(optional)..." value={this.state.descriptionField} onChange={this._onChangeDescription}>
                             </textarea>
+                            <label style={{marginTop: "10px"}}>Add image to post(optional)</label><br/>
+                            <input type="file" onChange={this._handleImage} style={{marginBottom: "10px"}}/><br/>
                             <button onClick={() => this._createPost()} className="btn btn-primary" style={{marginTop: "10px"}}>POST</button>
                         </div>
                     </div>

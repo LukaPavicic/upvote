@@ -23,7 +23,7 @@ class CommunityScreen extends React.Component {
         }).then(res => {
             this.setState({
                 community_data: res.data.community_data,
-                community_posts: res.data.community_posts,
+                community_posts: res.data.community_posts.reverse(),
                 isLoading: false,
             })
             console.log(res.data)
@@ -54,7 +54,9 @@ class CommunityScreen extends React.Component {
             return (
                 <div className="homescreen-wrapper">
                     <div className="container">
-                        <div className="row com-description">
+                        <div className="row com-description" style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.7) ,rgba(0,0,0,0.7)), url(${this.state.community_data.community_image})`,
+                        backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "luminosity",
+                        backgroundColor: "white",}}>
                             <div className="col-lg-8 col-md-8 col-xs-12 com-desc-left">
                             <h1>{this.state.community_data.name}</h1>
                             <p>
@@ -62,7 +64,13 @@ class CommunityScreen extends React.Component {
                             </p> 
                             </div>
                             <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
-                                {/* <img src="/undraw_status_update_jjgk.svg" width="80%"/> */}
+                                <div className="com-right-img-wrapper"
+                                 style={{width: "200px", height: "200px", borderRadius: "100px",
+                                  backgroundImage: `url(${this.state.community_data.community_image})`,
+                                  backgroundRepeat: "no-repeat", backgroundPosition: "center",
+                                  backgroundSize: "cover"}}>
+
+                                </div>
                             </div>                            
                         </div>
                         <h3>Community Posts</h3>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faPowerOff, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faPowerOff, faUser, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import '../css/navbar.css';
 import {Link, Redirect, withRouter} from 'react-router-dom';
 import axios from 'axios';
@@ -70,6 +70,7 @@ class Navbar extends React.Component {
                     </a>
                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                       <span onClick={this._goToCurrentProfile} className="dropdown-item"><FontAwesomeIcon style={{marginRight: "5px"}} color="#e67e22" icon={faUser}/>View Profile</span>                
+                      <Link to="/savedposts" className="dropdown-item"><FontAwesomeIcon style={{marginRight: "5px"}} color="#e67e22" icon={faBookmark}/>Saved Posts</Link>                
                       <div className="dropdown-divider"></div>
                       <span onClick={() => this._logout()} className="dropdown-item"><FontAwesomeIcon style={{marginRight: "5px"}} color="#e67e22" icon={faPowerOff}/>Logout</span>
                     </div>
@@ -90,7 +91,13 @@ class Navbar extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                  <Link className="nav-link" to="/welcome">Home <span className="sr-only">(current)</span></Link>
+                  <Link className="nav-link" to="/welcome">Home <span className="sr-only">(current)</span></Link>                
+                </li>              
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>                
+                </li>              
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Register</Link>                
                 </li>              
               </ul>            
             </div>
