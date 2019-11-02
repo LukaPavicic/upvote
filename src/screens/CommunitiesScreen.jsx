@@ -18,6 +18,7 @@ class CommunitiesScreen extends React.Component {
             new_com_name: "",
             new_com_description: "",
             new_com_image: null,
+            error_message_for_creating_com: "",
         }
     }
 
@@ -87,7 +88,28 @@ class CommunitiesScreen extends React.Component {
         }).then(res => {            
             this.props.history.push(`/community/${res.data.community}`)            
         }).catch(err => {
-            console.log(err)
+            console.log(err.response)
+            let missingFileds = Object.keys(err.response.data)
+            let nameMissing = false
+            let imageMissing = false
+            if (missingFileds.includes("name")) {
+                nameMissing = true
+            }
+
+            if(missingFileds.includes("community_image")) {
+                imageMissing = true
+            }
+            let errorMsg;
+            if(nameMissing && imageMissing) {
+                errorMsg = "Please enter name and select image for community"
+            } else if(nameMissing && !imageMissing) {
+                errorMsg = "Please enter name for community"
+            } else {
+                errorMsg = "Please select image for commuinity"
+            }
+            this.setState({
+                error_message_for_creating_com: errorMsg
+            })
         })
     }
 
@@ -150,6 +172,7 @@ class CommunitiesScreen extends React.Component {
                                     </textarea>
                                     <label>Community Image</label><br/>
                                     <input type="file" className="form-control-file" onChange={this._handleFile}/><br/>
+                                    <span style={{color: "red"}}>{this.state.error_message_for_creating_com}</span><br/>
                                     <button onClick={() => this._createCommunity()} style={{marginTop: "15px"}} className="btn btn-primary">CREATE</button>
                                 </div>
                             </div>    

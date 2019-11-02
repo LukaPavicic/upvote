@@ -25,6 +25,7 @@ export default class HomeScreen extends React.Component {
       this.setState({
         joined_communities: res.data.joined_communities,        
       })
+      console.log(res.data.joined_communities)
     }).catch(err => {
       console.log(err)
       // window.location.replace('/servererror')
