@@ -111,6 +111,12 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     background-color: #e67e22;
 }
 
+.joined-com-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .profile-picture-wrapper:hover {
     background-color: rgba(0,0,0,0.8);
     filter: grayscale(100%);

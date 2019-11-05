@@ -85,7 +85,13 @@ export default class HomeScreen extends React.Component {
                     <h5>Joined communities</h5>
                     <ul className="list-group">
                       {(this.state.joined_communities.length===0) ? <p className="lead">You haven't joined any communities.</p> : this.state.joined_communities.map((community) => (
-                        <Link style={{color: "black", textDecoration: "none"}} to={`/community/${community.id}`} key={community.id}><li className="list-group-item joined-com-item">{community.name}</li></Link>
+                        <Link style={{color: "black", textDecoration: "none"}} to={`/community/${community.id}`} key={community.id}>                          
+                          <li className="list-group-item joined-com-item">  
+                            <div style={{width: "30px", height: "30px", borderRadius: "15px", marginRight: "5px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundImage: `url('http://127.0.0.1:8000/media/${community.community_image}')`}}>
+                            </div>
+                            {community.name}
+                          </li>
+                        </Link>
                       ))}
                     </ul>
                   </div>
