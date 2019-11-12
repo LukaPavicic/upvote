@@ -57,7 +57,7 @@ export default class LoginScreen extends React.Component {
                 <input onChange={this._handleEmailInput} value={this.state.emailField} className="login-input" type="text" placeholder="Email..."/>
                 <input onChange={this._handlePasswordnput} value={this.state.passwordField} className="login-input" type="password" placeholder="Password..."/>
                 <button onClick={() => this._onSubmit()} className="btn btn-primary submit-button">LOGIN</button>
-                <Link to="/login">Forgot your password?</Link>
+                <Link to="/register">Don't have an account?</Link>
                 <img src="/undraw_authentication_fsn5.svg" alt="login illustration" className="login-svg"/>
               </div>
             </div>

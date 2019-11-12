@@ -78,3 +78,30 @@
 .container h3 {
     margin: 20px 0px;
 }
+
+.search-container {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comsearch-input {
+    width: 70%;
+}
+
+.edit-community {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

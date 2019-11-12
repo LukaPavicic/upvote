@@ -5,6 +5,8 @@ import '../css/master.css'
 import axios from 'axios'
 import PostItem from '../components/Homescreen/PostItem'
 import {Link} from 'react-router-dom'
+import {faTrash} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 class CommunityScreen extends React.Component {
 
@@ -32,6 +34,18 @@ class CommunityScreen extends React.Component {
         })
     }
 
+    _getCurrentUserId = () => {
+        axios.get('http://127.0.0.1:8000/api/getcurrentuserid/', {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            this.setState({
+                currentUserId: res.data.user_id
+            })
+        })
+    }
+
     updatePostData = (postId, index) => {
         axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
           headers: {
@@ -45,7 +59,22 @@ class CommunityScreen extends React.Component {
         })
     }
 
+    _deleteCommunity = () => {
+        if(window.confirm('Are you sure you want to delete this community?')) {
+            axios.delete(`http://127.0.0.1:8000/api/communities/${this.state.community_data.id}/`, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('authToken')}`
+                }
+            }).then(res => {
+                window.location.replace('/');
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    }
+
     componentDidMount() {
+        this._getCurrentUserId()
         this._getCommunity()
     }
 
@@ -71,6 +100,10 @@ class CommunityScreen extends React.Component {
                                   backgroundSize: "cover"}}>
 
                                 </div>
+                                {(this.state.currentUserId !== this.state.community_data.created_by) ? null : 
+                                <div className="edit-community" onClick={this._deleteCommunity}>
+                                   <FontAwesomeIcon icon={faTrash} color="white" size={"25px"}/> 
+                                </div>}
                             </div>                            
                         </div>
                         <h3>Community Posts</h3>

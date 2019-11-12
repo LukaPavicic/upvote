@@ -5,7 +5,7 @@ import '../css/homescreen.css'
 import Community from '../components/CommunitiesScreen/Community'
 import axios from 'axios'
 import {Link, withRouter} from 'react-router-dom'
-import $ from 'jquery'
+import * as $ from 'jquery'
 
 class CommunitiesScreen extends React.Component {
 
@@ -19,6 +19,8 @@ class CommunitiesScreen extends React.Component {
             new_com_description: "",
             new_com_image: null,
             error_message_for_creating_com: "",
+            search_coms: "",
+            searched_coms: [],
         }
     }
 
@@ -29,7 +31,7 @@ class CommunitiesScreen extends React.Component {
             }
         }).then(res => {
             this.setState({
-                communities: res.data,    
+                communities: res.data.slice(0,6),    
                 isLoadingComs: false,            
             })
             console.log(res.data)
@@ -70,14 +72,14 @@ class CommunitiesScreen extends React.Component {
         let formData = new FormData()
         formData.append('community_image', this.state.new_com_image)
         formData.append('name', this.state.new_com_name)
-        formData.append('description', this.state.new_com_description)
+        formData.append('description', this.state.new_com_description)        
 
         axios.post('http://127.0.0.1:8000/api/communities/', formData, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'multipart/form-data'
             }
-        }).then(res => {
+        }).then(res => {            
             return axios.post('http://127.0.0.1:8000/api/userjoinedcommunities/', {
                 community: res.data.id
             }, {
@@ -86,7 +88,8 @@ class CommunitiesScreen extends React.Component {
                 }
             })            
         }).then(res => {            
-            this.props.history.push(`/community/${res.data.community}`)            
+            // this.props.history.push(`/community/${res.data.community}`)  
+            window.location.replace(`/community/${res.data.community}`)          
         }).catch(err => {
             console.log(err.response)
             let missingFileds = Object.keys(err.response.data)
@@ -130,6 +133,32 @@ class CommunitiesScreen extends React.Component {
         this.setState({new_com_image: event.target.files[0]})
     } 
 
+    _handleComSearch = (event) => {
+        this.setState({
+            search_coms: event.target.value
+        })
+
+        if (event.target.value.length !== 0) {
+            axios.get(`http://127.0.0.1:8000/api/communities/?search=${event.target.value}`, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+            }).then(res => {
+                this.setState({
+                    searched_coms: res.data
+                })
+                console.log(res.data)
+                console.log(this.state.search_coms)
+            }).catch(err => {
+                console.log(err)
+            })
+        } else {
+            this.setState({
+                searched_coms: []
+            })
+        }
+    }
+
     render() {
         if(this.state.isLoadingUJC || this.state.isLoadingComs) {
             return (
@@ -154,7 +183,7 @@ class CommunitiesScreen extends React.Component {
             return (
                 <div className="homescreen-wrapper">
 
-                    <div className="modal fade" id="modalSocial" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    <div className="modal fade" id="createComModal" aria-labelledby="myModalLabel"
                     aria-hidden="true">
                         <div className="modal-dialog cascading-modal" role="document">                        
                             <div className="modal-content">                        
@@ -191,10 +220,22 @@ class CommunitiesScreen extends React.Component {
                                 <img src="/undraw_status_update_jjgk.svg" height="100%" alt="img"/>
                             </div>
                         </div>
-                        <button style={{marginTop: "30px"}} type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSocial">CREATE COMMUNITY</button>
+                        <button style={{marginTop: "30px"}} type="button" class="btn btn-primary" data-toggle="modal" data-target="#createComModal">CREATE COMMUNITY</button>
+                        <div className="search-container">
+                            <h2>Search Communities {(this.state.searched_coms.length === 0) ? null : (<span>({this.state.searched_coms.length})</span>)}</h2>
+                            <input onChange={this._handleComSearch} value={this.state.search_coms} className="form-control comsearch-input" placeholder="Community name..."/>                            
+                            <div className="row" style={{marginTop: "15px"}}>                                
+                                {this.state.searched_coms.map((community, index) => (
+                                    <div key={community.id} className="col-lg-4 col-md-6 col-xs-12">
+                                        <Link style={{textDecoration: "none"}} to={`/community/${community.id}`}>
+                                            <Community communityIndex={index} updateCommunityData={this._updateCommunityData} community={community}/>
+                                        </Link>                                    
+                                    </div>
+                                ))}
+                            </div>
+                        </div>                        
                         <h2>Featured Communities</h2>
-                        <div className="row" style={{marginTop: "15px"}}>
-                            {/* <div className="col-lg-4 col-md-6 col-xs-12"></div> */}
+                        <div className="row" style={{marginTop: "15px"}}>                        
                             {this.state.communities.map((community, index) => (
                                 <div key={community.id} className="col-lg-4 col-md-6 col-xs-12">
                                     <Link style={{textDecoration: "none"}} to={`/community/${community.id}`}>

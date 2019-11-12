@@ -61,8 +61,8 @@ class Navbar extends React.Component {
                   </li>
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
-                  <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                  <button className="btn btn-primary" type="submit">Search</button>
+                  {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                  <button className="btn btn-primary" type="submit">Search</button> */}
                   {/* <button onClick={() => this._logout()} className="btn btn-primary" style={{marginLeft: "10px"}}>LOGOUT</button> */}
                   <div className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
