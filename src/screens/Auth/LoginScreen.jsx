@@ -3,6 +3,7 @@ import '../../css/auth.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom'
+import {API_ROOT} from '../../apiconf'
 
 export default class LoginScreen extends React.Component {
 
@@ -33,7 +34,7 @@ export default class LoginScreen extends React.Component {
     axios({
       method: "POST",
       data: formData,
-      url: 'http://127.0.0.1:8000/api/login/',
+      url: `${API_ROOT}/api/login/`,
       config: {headers: {'Content-Type': 'multipart/form-data'}}
     }).then(res => {
       localStorage.setItem('authToken', res.data.token)   

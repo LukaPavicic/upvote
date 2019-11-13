@@ -7,6 +7,7 @@ import PostItem from '../components/Homescreen/PostItem'
 import {Link} from 'react-router-dom'
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {API_ROOT} from '../apiconf'
 
 class CommunityScreen extends React.Component {
 
@@ -18,7 +19,7 @@ class CommunityScreen extends React.Component {
     }
 
     _getCommunity = () => {
-        axios.get(`http://127.0.0.1:8000/api/communities/${this.props.match.params.id}/`, {
+        axios.get(`${API_ROOT}/api/communities/${this.props.match.params.id}/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -35,7 +36,7 @@ class CommunityScreen extends React.Component {
     }
 
     _getCurrentUserId = () => {
-        axios.get('http://127.0.0.1:8000/api/getcurrentuserid/', {
+        axios.get(`${API_ROOT}/api/getcurrentuserid/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -47,7 +48,7 @@ class CommunityScreen extends React.Component {
     }
 
     updatePostData = (postId, index) => {
-        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+        axios.get(`${API_ROOT}/api/posts/${postId}/`, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('authToken')}`
           }
@@ -61,7 +62,7 @@ class CommunityScreen extends React.Component {
 
     _deleteCommunity = () => {
         if(window.confirm('Are you sure you want to delete this community?')) {
-            axios.delete(`http://127.0.0.1:8000/api/communities/${this.state.community_data.id}/`, {
+            axios.delete(`${API_ROOT}/api/communities/${this.state.community_data.id}/`, {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem('authToken')}`
                 }

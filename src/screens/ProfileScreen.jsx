@@ -4,6 +4,7 @@ import axios from "axios"
 import moment from "moment"
 import PostItem from '../components/Homescreen/PostItem'
 import {Link} from 'react-router-dom'
+import {API_ROOT} from '../apiconf'
 
 export default class ProfileScreen extends React.Component {
 
@@ -17,7 +18,7 @@ export default class ProfileScreen extends React.Component {
     }
 
     _getUserData = () => {
-        axios.get(`http://127.0.0.1:8000/api/users/${this.props.match.params.id}/`, {
+        axios.get(`${API_ROOT}/api/users/${this.props.match.params.id}/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -37,7 +38,7 @@ export default class ProfileScreen extends React.Component {
     }
 
     updatePostData = (postId, index) => {
-        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+        axios.get(`${API_ROOT}/api/posts/${postId}/`, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('authToken')}`
           }
@@ -61,7 +62,7 @@ export default class ProfileScreen extends React.Component {
     _onChangeFile = (event) => {
         let formData = new FormData()
         formData.append('profile_image', event.target.files[0])
-        axios.patch(`http://127.0.0.1:8000/api/users/${this.state.user_info.id}/`, formData, {
+        axios.patch(`${API_ROOT}/api/users/${this.state.user_info.id}/`, formData, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -94,10 +95,9 @@ export default class ProfileScreen extends React.Component {
                                     Joined {moment(this.state.user_info.created_at).fromNow()} | Posted {this.state.user_posts.length} post(s)
                                 </p> 
                                 </div>
-                                <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">
-                                    {/* <img src={`http://localhost:8000${this.state.user_info.profile_image}`} height="100%" alt="img"/> */}
+                                <div className="col-lg-4 col-md-4 col-xs-12 com-desc-right">                                    
                                     <div className="profile-picture-wrapper" 
-                                    style={{backgroundImage: `url(http://localhost:8000${this.state.user_info.profile_image})`, 
+                                    style={{backgroundImage: `url(${API_ROOT}${this.state.user_info.profile_image})`, 
                                     backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center",
                                     width: "150px", height: "150px", borderRadius: "75px", display: "flex", alignItems: "center", justifyContent: "center"}} 
                                     onClick={this._showUploadFile}>

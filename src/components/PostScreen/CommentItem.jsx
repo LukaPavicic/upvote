@@ -3,11 +3,12 @@ import '../../css/posts.css'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import {API_ROOT} from '../../apiconf'
 
 export default class CommentItem extends React.Component {
 
     _deleteComment = () => {
-        axios.delete(`http://127.0.0.1:8000/api/comments/${this.props.comment.id}/`, {
+        axios.delete(`${API_ROOT}/api/comments/${this.props.comment.id}/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -22,7 +23,7 @@ export default class CommentItem extends React.Component {
         return (
             <div className="comment-wrapper">
                 <div className="author-image-wrapper">
-                    <div className="author-image" style={{backgroundImage: `url('http://localhost:8000${this.props.comment.author.profile_image}')`,
+                    <div className="author-image" style={{backgroundImage: `url('${API_ROOT}${this.props.comment.author.profile_image}')`,
                     backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center"}}></div>
                 </div>
                 <div className="comment-content-wrapper">

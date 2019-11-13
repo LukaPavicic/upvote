@@ -2,6 +2,7 @@ import React from 'react'
 import '../css/homescreen.css'
 import axios from 'axios'
 import PostItem from '../components/Homescreen/PostItem'
+import {API_ROOT} from '../apiconf'
 
 export default class SavedPostsScreen extends React.Component {
 
@@ -13,7 +14,7 @@ export default class SavedPostsScreen extends React.Component {
     }
 
     _getUserSavedPosts = () => {
-        axios.get('http://127.0.0.1:8000/api/save/', {
+        axios.get(`${API_ROOT}/api/save/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -30,7 +31,7 @@ export default class SavedPostsScreen extends React.Component {
     }
 
     updatePostData = (postId, index) => {
-        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+        axios.get(`${API_ROOT}/api/posts/${postId}/`, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('authToken')}`
           }

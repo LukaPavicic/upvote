@@ -2,6 +2,7 @@ import React from 'react'
 import '../../css/communities.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import { API_ROOT } from '../../apiconf';
 
 export default class Community extends React.Component {
 
@@ -13,7 +14,7 @@ export default class Community extends React.Component {
     }
 
     _joinCommunity = () => {
-        axios.post('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+        axios.post(`${API_ROOT}/api/userjoinedcommunities/`, {
             community: this.props.community.id
         }, {
             headers: {

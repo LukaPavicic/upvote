@@ -2,6 +2,7 @@ import React from 'react'
 import '../../css/homescreen.css'
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
+import {API_ROOT} from '../../apiconf'
 
 class NewPostScreen extends React.Component {
 
@@ -18,7 +19,7 @@ class NewPostScreen extends React.Component {
     }
 
     _getUserJoinedCommunities = () => {
-        axios.get('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+        axios.get(`${API_ROOT}/api/userjoinedcommunities/`, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('authToken')}`
           }
@@ -40,7 +41,7 @@ class NewPostScreen extends React.Component {
         if(this.state.image !== null) {                     
             formData.append('post_image', this.state.image) 
         }
-        axios.post('http://127.0.0.1:8000/api/posts/', formData, {
+        axios.post(`${API_ROOT}/api/posts/`, formData, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'multipart/form-data'

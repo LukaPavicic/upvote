@@ -6,6 +6,7 @@ import Community from '../components/CommunitiesScreen/Community'
 import axios from 'axios'
 import {Link, withRouter} from 'react-router-dom'
 import * as $ from 'jquery'
+import {API_ROOT} from '../apiconf'
 
 class CommunitiesScreen extends React.Component {
 
@@ -25,7 +26,7 @@ class CommunitiesScreen extends React.Component {
     }
 
     _getCommunities = () => {
-        axios.get('http://127.0.0.1:8000/api/communities/', {
+        axios.get(`${API_ROOT}/api/communities/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -41,7 +42,7 @@ class CommunitiesScreen extends React.Component {
     }
 
     _getUserJoinedCommunities = () => {
-        axios.get('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+        axios.get(`${API_ROOT}/api/userjoinedcommunities/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -54,7 +55,7 @@ class CommunitiesScreen extends React.Component {
     }
 
     _updateCommunityData = (communityId, index) => {
-        axios.get(`http://127.0.0.1:8000/api/communities/${communityId}/`, {
+        axios.get(`${API_ROOT}/api/communities/${communityId}/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -74,13 +75,13 @@ class CommunitiesScreen extends React.Component {
         formData.append('name', this.state.new_com_name)
         formData.append('description', this.state.new_com_description)        
 
-        axios.post('http://127.0.0.1:8000/api/communities/', formData, {
+        axios.post(`${API_ROOT}/api/communities/`, formData, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res => {            
-            return axios.post('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+            return axios.post(`${API_ROOT}/api/userjoinedcommunities/`, {
                 community: res.data.id
             }, {
                 headers: {
@@ -139,7 +140,7 @@ class CommunitiesScreen extends React.Component {
         })
 
         if (event.target.value.length !== 0) {
-            axios.get(`http://127.0.0.1:8000/api/communities/?search=${event.target.value}`, {
+            axios.get(`${API_ROOT}/api/communities/?search=${event.target.value}`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }

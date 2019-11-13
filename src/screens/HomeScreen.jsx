@@ -3,7 +3,7 @@ import '../css/homescreen.css';
 import {Redirect, Link} from 'react-router-dom'
 import axios from 'axios'
 import PostItem from '../components/Homescreen/PostItem'
-
+import {API_ROOT} from '../apiconf'
 
 export default class HomeScreen extends React.Component {
 
@@ -17,7 +17,7 @@ export default class HomeScreen extends React.Component {
   }
 
   _getUserJoinedCommunities = () => {
-    axios.get('http://127.0.0.1:8000/api/userjoinedcommunities/', {
+    axios.get(`${API_ROOT}/api/userjoinedcommunities/`, {
       headers: {
         'Authorization': `Token ${localStorage.getItem('authToken')}`
       }
@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
   }
 
   _getPosts = () => {
-    axios.get('http://127.0.0.1:8000/api/userrelevantposts/', {
+    axios.get(`${API_ROOT}/api/userrelevantposts/`, {
       headers: {
         'Authorization': `Token ${localStorage.getItem('authToken')}`
       }
@@ -54,7 +54,7 @@ export default class HomeScreen extends React.Component {
   }
 
   updatePostData = (postId, index) => {
-    axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+    axios.get(`${API_ROOT}/api/posts/${postId}/`, {
       headers: {
         'Authorization': `Token ${localStorage.getItem('authToken')}`
       }
@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
                       {(this.state.joined_communities.length===0) ? <p className="lead">You haven't joined any communities.</p> : this.state.joined_communities.map((community) => (
                         <Link style={{color: "black", textDecoration: "none"}} to={`/community/${community.id}`} key={community.id}>                          
                           <li className="list-group-item joined-com-item">  
-                            <div style={{width: "30px", height: "30px", borderRadius: "15px", marginRight: "5px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundImage: `url('http://127.0.0.1:8000/media/${community.community_image}')`}}>
+                            <div style={{width: "30px", height: "30px", borderRadius: "15px", marginRight: "5px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundImage: `url('${API_ROOT}/${community.community_image}')`}}>
                             </div>
                             {community.name}
                           </li>

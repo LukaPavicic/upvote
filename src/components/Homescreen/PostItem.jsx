@@ -5,6 +5,7 @@ import { faArrowUp, faComments, faBookmark, faCheck } from '@fortawesome/free-so
 import moment from "moment"
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import {API_ROOT} from '../../apiconf'
 
 
 export default class PostItem extends React.Component {
@@ -16,7 +17,7 @@ export default class PostItem extends React.Component {
     }
 
     _save = () => {
-        axios.post('http://127.0.0.1:8000/api/save/', {
+        axios.post(`${API_ROOT}/api/save/`, {
             post: this.props.post.id
         }, {
             headers: {
@@ -30,7 +31,7 @@ export default class PostItem extends React.Component {
     }
 
     _upvote = () => {
-        axios.post('http://127.0.0.1:8000/api/upvote/', {
+        axios.post(`${API_ROOT}/api/upvote/`, {
             post: this.props.post.id
         }, {
             headers: {

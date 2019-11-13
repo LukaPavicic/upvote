@@ -4,6 +4,7 @@ import { faPencilAlt, faPowerOff, faUser, faBookmark } from '@fortawesome/free-s
 import '../css/navbar.css';
 import {Link, Redirect, withRouter} from 'react-router-dom';
 import axios from 'axios';
+import {API_ROOT} from '../apiconf'
 
 class Navbar extends React.Component {
 
@@ -20,7 +21,7 @@ class Navbar extends React.Component {
   }
 
   _goToCurrentProfile = () => {
-    axios.get('http://127.0.0.1:8000/api/getcurrentuserid/', {
+    axios.get(`${API_ROOT}/api/getcurrentuserid/`, {
       headers: {
         'Authorization': `Token ${localStorage.getItem('authToken')}`
       }

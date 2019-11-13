@@ -3,6 +3,7 @@ import '../../css/auth.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom'
+import {API_ROOT} from '../../apiconf'
 
 export default class RegisterScreen extends React.Component {
 
@@ -21,7 +22,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://127.0.0.1:8000/api/users/', {
+    axios.get(`h${API_ROOT}/api/users/`, {
       headers: {
         'Accept': 'application/json'
       }
@@ -112,7 +113,7 @@ export default class RegisterScreen extends React.Component {
       axios({
         method: 'POST',
         data: formData,
-        url: 'http://127.0.0.1:8000/api/users/',
+        url: `${API_ROOT}/api/users/`,
         config: {headers: {'Content-Type': 'multipart/form-data'}}
       }).then(request => {
         console.log(request.data);

@@ -5,6 +5,7 @@ import axios from 'axios'
 import CommentItem from '../components/PostScreen/CommentItem'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
+import {API_ROOT} from '../apiconf'
 
 class PostScreen extends React.Component {
 
@@ -24,7 +25,7 @@ class PostScreen extends React.Component {
     }
 
     _getLoggedUserId = () => {
-        axios.get('http://127.0.0.1:8000/api/getcurrentuserid/', {
+        axios.get(`${API_ROOT}/api/getcurrentuserid/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -37,7 +38,7 @@ class PostScreen extends React.Component {
     }
 
     _getPost = () => {
-        axios.get(`http://127.0.0.1:8000/api/posts/${this.props.match.params.id}/`, {
+        axios.get(`${API_ROOT}/api/posts/${this.props.match.params.id}/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
@@ -64,7 +65,7 @@ class PostScreen extends React.Component {
     }
 
     updatePostData = (postId, index) => {
-        axios.get(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+        axios.get(`${API_ROOT}/api/posts/${postId}/`, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('authToken')}`
           }
@@ -78,7 +79,7 @@ class PostScreen extends React.Component {
       }
 
     _postComment = () => {
-        axios.post('http://127.0.0.1:8000/api/comments/', {
+        axios.post(`${API_ROOT}/api/comments/`, {
             post: this.state.post_data.id,
             content: this.state.new_comment,
         }, {
