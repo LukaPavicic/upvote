@@ -109,7 +109,7 @@ class CommunityScreen extends React.Component {
                         </div>
                         <h3>Community Posts</h3>
                         {this.state.community_posts.map((post, index) => (
-                        <Link style={{textDecoration: "none", color: "black", width: "100%"}} to={`/post/${post.id}`}>
+                        <Link style={{textDecoration: "none", color: "black", width: "70%"}} to={`/post/${post.id}`}>
                             <PostItem key={post.id} post={post} postIndex={index} updatePostData={this.updatePostData}/>
                         </Link>                      
                         ))}

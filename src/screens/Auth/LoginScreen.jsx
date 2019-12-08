@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom'
 import {API_ROOT} from '../../apiconf'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGithub, faStackOverflow} from '@fortawesome/free-brands-svg-icons'
 
 export default class LoginScreen extends React.Component {
 
@@ -63,6 +65,11 @@ export default class LoginScreen extends React.Component {
               </div>
             </div>
           </div>
+          <footer className="credits-wrapper-footer">
+            <span>Developed by Luka Pavičić</span>
+            <a target="_blank" href="https://github.com/LukaPavicic"><FontAwesomeIcon icon={faGithub} color="white" style={{marginLeft: "15px"}}/></a>
+            <a target="_blank" href="https://stackoverflow.com/users/10249627/crodev?tab=profile"><FontAwesomeIcon icon={faStackOverflow} color="white" style={{marginLeft: "10px"}}/></a>
+          </footer>
         </div>
       )
     } else {

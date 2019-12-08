@@ -102,7 +102,9 @@ class PostScreen extends React.Component {
                 return (
                     <div className="homescreen-wrapper">
                         <div className="container">
-                            <PostItem post={this.state.post_data} single={true} updatePostData={this.updatePostData} postIndex={0}/>
+                            <div style={{width: "70%"}}>
+                                <PostItem post={this.state.post_data} single={true} updatePostData={this.updatePostData} postIndex={0}/>
+                            </div>
                             <h3>Comments</h3>
                             <div class="input-group mb-3 new-comment">
                                 <input type="text" class="form-control" placeholder="Add new comment..." value={this.state.new_comment} onChange={this._handleNewComment}/>

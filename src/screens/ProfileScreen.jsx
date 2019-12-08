@@ -106,7 +106,7 @@ export default class ProfileScreen extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{width: "100%"}}>
+                            <div style={{width: "70%"}}>
                                 <h2>User Posts</h2>
                                 {this.state.user_posts.map((post, index) => (
                                     <Link style={{color: "black", textDecoration: "none"}} to={`/post/${post.id}`}>

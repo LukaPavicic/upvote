@@ -4,6 +4,9 @@ import {Redirect, Link} from 'react-router-dom'
 import axios from 'axios'
 import PostItem from '../components/Homescreen/PostItem'
 import {API_ROOT} from '../apiconf'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGithub, faStackOverflow} from '@fortawesome/free-brands-svg-icons'
+
 
 export default class HomeScreen extends React.Component {
 
@@ -87,13 +90,18 @@ export default class HomeScreen extends React.Component {
                       {(this.state.joined_communities.length===0) ? <p className="lead">You haven't joined any communities.</p> : this.state.joined_communities.map((community) => (
                         <Link style={{color: "black", textDecoration: "none"}} to={`/community/${community.id}`} key={community.id}>                          
                           <li className="list-group-item joined-com-item">  
-                            <div style={{width: "30px", height: "30px", borderRadius: "15px", marginRight: "5px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundImage: `url('${API_ROOT}/${community.community_image}')`}}>
+                            <div style={{width: "30px", height: "30px", borderRadius: "15px", marginRight: "5px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundImage: `url('${API_ROOT}/media/${community.community_image}')`}}>
                             </div>
                             {community.name}
                           </li>
                         </Link>
                       ))}
                     </ul>
+                    <div className="credits-wrapper">
+                      <span>Developed by Luka Pavičić</span>
+                      <a target="_blank" href="https://github.com/LukaPavicic"><FontAwesomeIcon icon={faGithub} color="black" style={{marginLeft: "15px"}}/></a>
+                      <a target="_blank" href="https://stackoverflow.com/users/10249627/crodev?tab=profile"><FontAwesomeIcon icon={faStackOverflow} color="black" style={{marginLeft: "10px"}}/></a>
+                    </div>
                   </div>
                 </div>          
               </div>

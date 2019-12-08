@@ -12,6 +12,9 @@ import CommunitiesScreen from './screens/CommunitiesScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import PostScreen from './screens/PostScreen';
 import SavedPostsScreen from './screens/SavedPostsScreen';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGithub, faStackOverflow} from '@fortawesome/free-brands-svg-icons'
+import './css/homescreen.css'
 
 class App extends React.Component {
   render() {
@@ -32,6 +35,11 @@ class App extends React.Component {
             <Route exact path="/post/:id" component={PostScreen}/>
             <Route exact path="/savedposts" component={SavedPostsScreen}/>
           </Switch>
+          {/* <footer className="footer">
+            <span style={{marginRight: "10px"}}>Developed by Luka Pavičić</span>
+            <a target="_blank" href="https://github.com/LukaPavicic"><FontAwesomeIcon className="footer-icon" icon={faGithub} color="black" size="2x"/></a>
+            <a target="_blank" href="https://stackoverflow.com/users/10249627/crodev?tab=profile"><FontAwesomeIcon icon={faStackOverflow} color="black" size="2x"/></a>
+          </footer> */}
         </div>
       </Router>
     );
