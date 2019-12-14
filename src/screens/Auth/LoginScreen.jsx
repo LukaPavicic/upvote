@@ -14,6 +14,7 @@ export default class LoginScreen extends React.Component {
     this.state = {
       emailField: "",
       passwordField: "",
+      errMessage: "",
     }
   }
 
@@ -42,7 +43,9 @@ export default class LoginScreen extends React.Component {
       localStorage.setItem('authToken', res.data.token)   
       this.props.history.push('/')      
     }).catch(err => {
-      console.log(err)
+      this.setState({
+        errMessage: "Email or password is incorrect. Try again."
+      })
     })
   }
 
@@ -59,6 +62,7 @@ export default class LoginScreen extends React.Component {
                 <h2>LOGIN</h2>
                 <input onChange={this._handleEmailInput} value={this.state.emailField} className="login-input" type="text" placeholder="Email..."/>
                 <input onChange={this._handlePasswordnput} value={this.state.passwordField} className="login-input" type="password" placeholder="Password..."/>
+                <span style={{color: "red", marginTop: "10px"}}>{(this.state.errMessage.length === 0) ? null : this.state.errMessage}</span>
                 <button onClick={() => this._onSubmit()} className="btn btn-primary submit-button">LOGIN</button>
                 <Link to="/register">Don't have an account?</Link>
                 <img src="/undraw_authentication_fsn5.svg" alt="login illustration" className="login-svg"/>
