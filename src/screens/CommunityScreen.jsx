@@ -35,6 +35,10 @@ class CommunityScreen extends React.Component {
         })
     }
 
+    _refreshCommunity = () => {
+        this._getCommunity();
+    }
+
     _getCurrentUserId = () => {
         axios.get(`${API_ROOT}/api/getcurrentuserid/`, {
             headers: {
@@ -110,7 +114,7 @@ class CommunityScreen extends React.Component {
                         <h3>Community Posts</h3>
                         {this.state.community_posts.map((post, index) => (
                         <Link style={{textDecoration: "none", color: "black", width: "70%"}} to={`/post/${post.id}`}>
-                            <PostItem key={post.id} post={post} postIndex={index} updatePostData={this.updatePostData}/>
+                            <PostItem refreshPosts={this._refreshCommunity} canBeDeleted={true} currentUserId={this.state.currentUserId} key={post.id} post={post} postIndex={index} updatePostData={this.updatePostData}/>
                         </Link>                      
                         ))}
                     </div>

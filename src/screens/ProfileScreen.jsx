@@ -22,8 +22,7 @@ export default class ProfileScreen extends React.Component {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('authToken')}`
             }
-        }).then(res => {
-            console.log(res.data)
+        }).then(res => {            
             this.setState({
                 user_info: res.data.user_info,
                 user_posts: res.data.user_posts,
@@ -74,6 +73,10 @@ export default class ProfileScreen extends React.Component {
         })
     }
 
+    _refreshPosts = () => {
+        this._getUserData();
+    }
+
     render() {
         if(this.state.isLoading) {
             return (
@@ -110,7 +113,7 @@ export default class ProfileScreen extends React.Component {
                                 <h2>User Posts</h2>
                                 {this.state.user_posts.map((post, index) => (
                                     <Link style={{color: "black", textDecoration: "none"}} to={`/post/${post.id}`}>
-                                        <PostItem post={post} postIndex={index} key={post.id} style={{width: "100%"}} updatePostData={this.updatePostData}/>
+                                        <PostItem refreshPosts={this._refreshPosts} canBeDeleted={true} currentUserId={this.state.user_info.id} post={post} postIndex={index} key={post.id} style={{width: "100%"}} updatePostData={this.updatePostData}/>
                                     </Link>                                    
                                 ))}
                             </div>               

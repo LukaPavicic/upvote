@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../css/homescreen.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faArrowUp, faComments, faBookmark, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faComments, faBookmark, faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
 import moment from "moment"
 import {Link} from 'react-router-dom'
 import axios from 'axios'
@@ -13,6 +13,35 @@ export default class PostItem extends React.Component {
         super(props)
         this.state = {
 
+        }
+    }
+
+    _delete = () => {
+        axios.delete(`${API_ROOT}/api/posts/${this.props.post.id}/`, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => {
+            console.log(res.data)
+            this.props.refreshPosts()
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    _renderDelete = () => {
+        if(this.props.canBeDeleted) {
+            return (
+                <div>
+                {(this.props.currentUserId === this.props.post.author.id) ? 
+                    <Link onClick={() => this._delete()} style={{marginLeft: "20px", textDecoration: "none"}}>
+                        <FontAwesomeIcon icon={faTrash} color="red"/>
+                        <span style={{marginLeft: "5px", fontSize: "18px", color: "red"}}>Delete</span>
+                    </Link> : null}
+                </div>
+            );
+        } else {
+            return null;
         }
     }
 
@@ -71,6 +100,7 @@ export default class PostItem extends React.Component {
                             <FontAwesomeIcon icon={(this.props.post.has_user_saved === 1) ? faCheck : faBookmark} color={"#e67e22"}/>
                             <span style={{marginLeft: "5px", fontSize: "18px", color: "#e67e22"}}>{(this.props.post.has_user_saved === 1) ? "Saved" : "Save"}</span>
                         </Link>
+                        {this._renderDelete()}
                     </div>
                     <div className="single-post-bottom-right"></div>
                 </div>              

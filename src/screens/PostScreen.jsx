@@ -96,6 +96,10 @@ class PostScreen extends React.Component {
         })
     }
 
+    _refreshPost = () => {
+        window.location.replace(`http://localhost:3000/`);
+    }
+
     render() {
         if(!this.state.isLoading && !this.state.isLoadingUserId) {
             if(this.state.postExists) {
@@ -103,7 +107,7 @@ class PostScreen extends React.Component {
                     <div className="homescreen-wrapper">
                         <div className="container">
                             <div style={{width: "70%"}}>
-                                <PostItem post={this.state.post_data} single={true} updatePostData={this.updatePostData} postIndex={0}/>
+                                <PostItem refreshPosts={this._refreshPost} canBeDeleted={true} currentUserId={this.state.currentUserId} post={this.state.post_data} single={true} updatePostData={this.updatePostData} postIndex={0}/>
                             </div>
                             <h3>Comments</h3>
                             <div class="input-group mb-3 new-comment">

@@ -69,7 +69,7 @@ export default class SavedPostsScreen extends React.Component {
                         </div>  
                         <div style={{width: "70%"}}>                      
                             {this.state.saved_posts.map((post, index) => (
-                                <PostItem post={post.post} postIndex={index} key={post.post.id} updatePostData={this.updatePostData}/>
+                                <PostItem canBeDeleted={false} post={post.post} postIndex={index} key={post.post.id} updatePostData={this.updatePostData}/>
                             ))}  
                         </div>          
                     </div>

@@ -80,7 +80,7 @@ export default class HomeScreen extends React.Component {
                     <h5>Posts</h5>
                     {this.state.posts.map((post,index) => (
                       <Link style={{textDecoration: "none", color: "black"}} to={`/post/${post.id}`}>
-                        <PostItem postIndex={index} key={post.id} post={post} updatePostData={this.updatePostData}/>
+                        <PostItem canBeDeleted={false} postIndex={index} key={post.id} post={post} updatePostData={this.updatePostData}/>
                       </Link>                      
                     ))}
                   </div>
